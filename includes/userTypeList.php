@@ -2,7 +2,10 @@
 
 include "db.inc.php";
 
-$mySelect = "SELECT * FROM mtm4057_save_user_types";
+$mySelect = "SELECT * FROM 'mtm4057_save_user_types'";
+
+
+
 
 
 $save_user_types = $link->query($mySelect);
