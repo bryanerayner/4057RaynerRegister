@@ -27,6 +27,7 @@ else
 }
 
 
+
 switch($clickedButton)
 {
     case"add":
@@ -78,20 +79,27 @@ switch($clickedButton)
 			
             ?>
             <p>Please follow the instructions to fill out this form. If there are no instructions then please add some.</p>
-            
+
             <?php
 			//This form appears when a user clicks Add or Edit
 
             if($clickedButton == "add" || $clickedButton == "edit")
             {
+
+                $typename = "";
+                $typeid = 1;
+
 			?>
             <form action="edit.php" method="post" enctype="application/x-www-form-urlencoded">
             	<legend>Add | Edit Form</legend>
-                <input type="hidden" name="typeid" id="typeid" value="<?=  ?>" />
+
+
+                <input type="hidden" name="typeid" id="typeid" value="<?= $typeid ?>" />
                 <div class="formbox">
                 	<label for="typename">First Name</label>
-                    <input type="text" name="typename" id="typename" value="<?=  ?>" />
+                    <input type="text" name="typename" id="typename" value="<?= $typename ?>" />
                 </div>
+                
                 <div class="formbox buttons">
                 	<input type="submit" name="btnCancel" id="btnCancel" value="Cancel" />
                 	<input type="submit" name="btnSave" id="btnSave" value="Save" />
@@ -116,7 +124,22 @@ switch($clickedButton)
 					//PHP to dynamically build this list goes here
 					//Fetch all the usertypes from the db table. type_id is the value and type_name is the text
 					
-					?>
+                    include("includes/userTypeListEdit.php");
+
+                    $userTypes_count = count($userTypes);
+
+                    // foreach($userTypes as $user)
+                    // {
+                    //     echo '<option>'+$user[""]
+                    // }
+
+                    for ($i = 0; $i < $userTypes_count; $i ++)
+                    {
+                        $typeid = $userTypes[$i]["type_id"];
+                        $typename = $userTypes[$i]["type_name"];
+                    ?><output value = "<?php echo $typeid; ?>"><?php echo $typename; ?></output><?php
+                       }
+                    ?>
                     </select>
                 </div>
                 <div class="formbox buttons">
