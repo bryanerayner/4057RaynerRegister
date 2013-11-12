@@ -12,5 +12,5 @@ $dbuser = "rayn0021";
 $dbpass = "40628090";
 $dbhost = "localhost";
 
-$link = new PDO("mysql:host=". $dbhost . ";dbname=" . $dbname, $dbuser, $dbpass );
-
+$pdo = new PDO("mysql:host=". $dbhost . ";dbname=" . $dbname, $dbuser, $dbpass ) or exit();
+?>

@@ -2,12 +2,14 @@
 //All the code to process the form goes up here
 
 
-include "includes/db.inc.php";
+require_once "includes/db.inc.php";
 
 
 $success = "";
 
 $errors = array();
+
+
 
 if (isset($_POST["btnSubmit"]))
 {
@@ -77,7 +79,7 @@ if (isset($_POST["btnSubmit"]))
         $sql = "INSERT INTO  `mtm4057_save_users` (  `email` ,  `first_name` ,  `last_name` ,  `user_type` , `pass` ) VALUES ( '".$email."',  '".$firstname."',  '".$lastname."',  '".$usertype."',  '".$pwd."' )";
 
 
-        $ret = $link->query($sql);
+        $ret = $pdo->query($sql);
 
         if ($ret)
         {
@@ -181,5 +183,5 @@ function printError($msg)
 </body>
 </html>
 <?php
-$link = null;
+$pdo = null;
 ?>
