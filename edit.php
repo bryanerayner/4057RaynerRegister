@@ -57,10 +57,12 @@ if ($clickedButton == "edit" || $clickedButton == "delete")
 }
 
 
+
 if (isset($_POST["typename"]))
 {
     $typename = $_POST["typename"];
-}else
+}
+else
 {
     if ($typeid >= 0)
     {
@@ -68,11 +70,33 @@ if (isset($_POST["typename"]))
 
         $sql = "SELECT type_name FROM mtm4057_save_user_types WHERE type_id = '".$typeid."'";
         $result = $pdo->query($sql);
+        
 
         if ($result)
         {
-            $typename = $result->fetch(PDO::FETCH_ASSOC)["type_name"];
+
+            $resultFetch  = $result->fetch(PDO::FETCH_ASSOC);
+            
+            if ($resultFetch)
+            {
+                if ($resultFetch["type_name"])
+                {
+                    $typename = $resultFetch["type_name"];
+                }else
+                {
+                    $clickedButton = "add";
+                }
+            }else
+            {
+                $clickedButton = "add";
+            }
+        }else
+        {
+            $clickedButton = "add";
         }
+    }else
+    {
+        $clickedButton = "add";
     }
 }
 
@@ -83,7 +107,6 @@ switch($clickedButton)
 
     break;
     case"edit":
-
     break;
     case"save":
         
@@ -145,6 +168,9 @@ switch($clickedButton)
 
 //FETCH SINGLE USER TYPE data
 
+
+
+
 ?>
 <!doctype html>
 <html>
@@ -179,7 +205,7 @@ switch($clickedButton)
             <p>Welcome to the User Types administration panel. Please select a User Type to edit or delete, or, alternatively, add a new one.</p>
 			<?php }
 
-            if ($clickedButton == "add")
+            if ($clickedButton == "add" && isset($typeid))
             { ?>
             <p>Please type in the name for the new user type.</p>
             <?php }
@@ -234,13 +260,15 @@ switch($clickedButton)
                 <div class="formbox">
                 	<label for="usertypes">Account Type</label>
                     <select name="usertypes" id="usertypes">
-                    <option value = "-1">Select Type:</option>
+                    <option value = "null">Select Type:</option>
                         <?php
 					//PHP to dynamically build this list goes here
 					//Fetch all the usertypes from the db table. type_id is the value and type_name is the text
 					
                     include("includes/userTypeListEdit.php");
 
+
+                    
                     $userTypes_count = count($userTypes);
 
                     // foreach($userTypes as $user)

@@ -19,7 +19,8 @@ if ($save_user_types)
 	//echo '<option>'.$count.'</option>';
 	for ($i = 0; $i < $count; $i++)
 	{
-		$userTypes[] = $save_user_types->fetch(PDO::FETCH_ASSOC);		
+		$userTypes[] = $save_user_types->fetch(PDO::FETCH_ASSOC);	
+		
 	}
 }
 else
